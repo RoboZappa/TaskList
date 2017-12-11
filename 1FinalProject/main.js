@@ -71,17 +71,21 @@ app.on('ready', _=>{
             }
         ]
 
-// For cool.js
-// renderer ipc
-ipc.on('countdown-start', (evt,arg) =>{
-    let count = 3 
-    let timer = setInterval(_=>{
-         console.log("count " + count);
-         count--
-         mainWindow.webContents.send('countdown', count);
-         if(count == 0){
-            clearInterval(timer);
-        }
-    }, 1000);
+
+//Saving a file
+
+
+//// For cool.js
+//// renderer ipc
+// ipc.on('countdown-start', (evt,arg) =>{
+//     let count = 3 
+//     let timer = setInterval(_=>{
+//          console.log("count " + count);
+//          count--
+//          mainWindow.webContents.send('countdown', count);
+//          if(count == 0){
+//             clearInterval(timer);
+//         }
+//     }, 1000);
    
-})
+// })
