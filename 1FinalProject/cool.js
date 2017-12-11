@@ -1,3 +1,5 @@
+// Renderer js
+// child of the main
 const electron = require('electron');
 const ipc = electron.ipcRenderer;
 

@@ -6,7 +6,7 @@ const ipc = electron.ipcMain;
 
 app.on('ready', _=>{
     console.log("It's alive!");
-    mainWindow = new BrowserWindow({ width:800, height:700});
+    mainWindow = new BrowserWindow({ width:625, height:550});
     mainWindow.loadURL(`file://${__dirname}/task.html`);
 
     const menu = Menu.buildFromTemplate(myTemplate);
@@ -23,36 +23,58 @@ app.on('ready', _=>{
             label: "File",
             submenu: [
                 {
-                    label: "Open"
-                },{type: 'separator'},
+                    label: "Open",
+                    accelerator: 'Ctrl+O'
+                },// End Open
+                {type: 'separator'},  
                 {
-                    label: "Edit"
-                },{type: 'separator'},
+                    label: "Edit",
+                    click: _=>{
+                        alert("I don't do anything yet")
+                    }
+                },//End Edit
+                {type: 'separator'},
                 {
-                    label: "View"
-                },{type: 'separator'},
+                    label: "View",
+                    click: _=>{
+                        alert("I don't do anything yet")
+                    }
+                },//End View
+                {type: 'separator'},
                 {
                     label: "Quit",
                     click: _=>{
                             app.quit()
                         },
-                        acclerator: 'Ctrl+Q'
-                    } 
-                ]
+                        accelerator: 'Ctrl+Q'
+                    }//End Quit
+                ]//End Submenu
             },
             {
-                label: "Help"
+                label: "Help",
+                click: _=>{
+                        alert("No help for you")
+                    }
             },
             {
                 label: "About",
                 click: _=>{
                     console.log("You clicked me!");
+                }
+            },
+            {
+                label: "Dev Tools",
+                click: function(item, focusedWindow){
+                    focusedWindow.toggleDevTools();
+                },
+                accelerator : 'ctrl+i'
             }
-        }
-    ]
+        ]
 
+// For cool.js
+// renderer ipc
 ipc.on('countdown-start', (evt,arg) =>{
-    let count=3
+    let count = 3 
     let timer = setInterval(_=>{
          console.log("count " + count);
          count--
