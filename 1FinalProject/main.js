@@ -20,34 +20,36 @@ app.on('ready', _=>{
 // Tool bar & buttons
  const myTemplate = [
         {
-            label: "File"
-        },
-        {
-            label: "Edit"
-        },
-        {
-            label: "View"
-        },
-        {
-            label: "Help"
-        },
-        {
-            label: "About",
-            click: _=>{
-                console.log("You clicked me!");
-             }
-        },
-        {
-            label: "Close",
-            click: _=>{
-                    mainWindow.on('closed', _=>{
-                        mainWindow = null;
-                        console.log('closed');
-                });
+            label: "File",
+            submenu: [
+                {
+                    label: "Open"
+                },{type: 'separator'},
+                {
+                    label: "Edit"
+                },{type: 'separator'},
+                {
+                    label: "View"
+                },{type: 'separator'},
+                {
+                    label: "Quit",
+                    click: _=>{
+                            app.quit()
+                        },
+                        acclerator: 'Ctrl+Q'
+                    } 
+                ]
+            },
+            {
+                label: "Help"
+            },
+            {
+                label: "About",
+                click: _=>{
+                    console.log("You clicked me!");
             }
         }
-        
-]
+    ]
 
 ipc.on('countdown-start', (evt,arg) =>{
     let count=3
