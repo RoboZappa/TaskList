@@ -2,6 +2,10 @@ const electron = require('electron');
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 const Menu = electron.Menu;
+//File stuff
+var dialog = app.dialog;
+var fs = require('fs');
+var json = require('json-file')
 const ipc = electron.ipcMain;
 
 app.on('ready', _=>{
@@ -24,68 +28,56 @@ app.on('ready', _=>{
             submenu: [
                 {
                     label: "Open",
+                    click:_=>{ mainWindow.webContents.send( 'menu-open' )},
                     accelerator: 'Ctrl+O'
                 },// End Open
                 {type: 'separator'},  
                 {
-                    label: "Edit",
-                    click: _=>{
-                        alert("I don't do anything yet")
-                    }
-                },//End Edit
+                    label: "Add Todo",
+                    click: () => { mainWindow.webContents.send( 'menu-add' ) }
+                },//End Add
                 {type: 'separator'},
                 {
-                    label: "View",
-                    click: _=>{
-                        alert("I don't do anything yet")
-                    }
-                },//End View
+                    label: "Clear List",
+                    click: () => { mainWindow.webContents.send( 'menu-clear' ) }
+                },//End Clear
                 {type: 'separator'},
                 {
                     label: "Quit",
-                    click: _=>{
-                            app.quit()
-                        },
-                        accelerator: 'Ctrl+Q'
-                    }//End Quit
+                    click: _=>{app.quit()},
+                    accelerator: 'Ctrl+Q'
+                }//End Quit
                 ]//End Submenu
             },
             {
                 label: "Help",
-                click: _=>{
-                        alert("No help for you")
-                    }
+                click: _=>{alert("No help for you") }
             },
             {
                 label: "About",
-                click: _=>{
-                    console.log("You clicked me!");
-                }
+                click: _=>{ console.log("You clicked me!") }
             },
             {
                 label: "Dev Tools",
-                click: function(item, focusedWindow){
-                    focusedWindow.toggleDevTools();
-                },
+                click: function(item, focusedWindow){ focusedWindow.toggleDevTools();},
                 accelerator : 'ctrl+i'
-            }
+            },
+            { label: "Refresh", role: "reload"}
         ]
-
-
+//Listen to me.
+//Listeners get triggered from the ipc-renderer-js in the cool.js
+//Opening a file 
+ipc.on('open-json', (event, filePath)=>{
+    var file = json.read(filePath);
+    var thing = file.get('todos');
+    //webContents...
+    mainWindow.webContents.send('obtain-file-content', thing);
+});
 //Saving a file
+ipc.on('save-json', (event, args)=>{
+    console.log(args[0]);
+    var file = `${args[1]}`;
+    console.log(file);
+    fs.writeFileSync(file, JSON.stringify(list));
+});
 
-
-//// For cool.js
-//// renderer ipc
-// ipc.on('countdown-start', (evt,arg) =>{
-//     let count = 3 
-//     let timer = setInterval(_=>{
-//          console.log("count " + count);
-//          count--
-//          mainWindow.webContents.send('countdown', count);
-//          if(count == 0){
-//             clearInterval(timer);
-//         }
-//     }, 1000);
-   
-// })

@@ -4,39 +4,100 @@
     <title>Honey Do List</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-     <!-- Compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+     <!-- Material Icon CDN -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Path of the materialize.min.css file -->
+    <link rel="stylesheet" href="css/materialize.min.css" media="screen,projection">
     <!-- My CSS  -->
-    <link rel="stylesheet" href="task.css">
+    <link rel="stylesheet" href="css/task.css">
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Calligraffitti|Dancing+Script" rel="stylesheet"> 
   </head>
   <body>
-    <div class="myContainer">  
-      <nav>
-        <div class="nav-wrapper">
-          <a href="#" class="brand-logo left">Honey Do's</a>
-          <ul id="nav-mobile" class="right hide-on-med-and-down">
-            <li></li>
-            <li></li>
-            <li></li>
-          </ul>
-        </div>
-      </nav>
-      <!-- <h1>Countdown</h1>
-      <div id='count' class="countdown"></div>
-      <button class="btn" id="start">Start</button> -->
-      <div class="input">
-          <input type="text" id="content">
-          <button class="btn" id="btn">Create A File</button>
+    <nav>
+      <div class="nav-wrapper">
+        <a href="#" class="brand-logo left">Honey Do's</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
       </div>
-    </div>
+    </nav>
+    <!-- Main content -->
+    <div class="container" id="app"> 
+      <!-- Todo list -->
+      <ul class="collection" id="list">
+        <ol>
+          <li v-for="todo in todos" class="collection-item" v-if="todo.completed == false">
+            {{todo.name}}
+            <a v-on:click="removeTodo(todo.id)" href="#" class="secondary-content"><i class="material-icons">check_circle</i></a>
+          </li>
+        </ol>
+      </ul>
+        <!-- Add todo -->
+      <div class="collection">
+          <input type="text" id="content" value="Thing to do" class="validate">
+          <button v-on:click="addTodo" class="btn" id="btnAdd">Add to list</button>
+      </div>
+    </div> <!-- App div close -->
+
+  <!-- Save List -->
+  <div class="container">
+      <div class-"row">
+          <a class="waves-effect waves-light btn modal-trigger" data-target="modalSave">Save List</a>
+      
+          <div id="modalSave" class="modal bottom-sheet">
+              <div class="modal-content">
+                  <h4>Save List</h4>
+                  <p>Save current list?</p>
+                </div>
+                <div class="modal-footer">
+                  <a id="btnSave" href="#!" class="btn-flat modal-action modal-close waves-effect waves-green">Save</a>
+                </div>
+            </div>
+        </div>
+      </div>
+  <!-- OpenList -->
+  <div class="container">
     
-    <script>require("./cool.js")</script>
+        <a class="waves-effect waves-light btn modal-trigger" data-target="modalOpen">Open List</a>
+    
+        <div id="modalOpen" class="modal">
+            <div class="modal-content file-field input-field">
+                <h4>Open List</h4>
+                <p>Pick a file to open</p>
+                <div class-"row">
+                  <span>File</span>
+                  <input id="userFile" type="file">
+                </div>
+                <div class="file-path-wrapper">
+                  <input class="file-path validate" type="text">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <a id="btnOpen" href="#!" class="btn-flat modal-action modal-close waves-effect waves-green">Open</a>
+              </div>
+          </div>
+      </div>
+  
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="cool.js"></script>
+    <script src="js/hammer.min.js"></script>
+    <script src="js/materialize.js"></script>
+    <!-- modal script -->
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('.modal').modal();
+      })
+    </script>
     <!-- Compiled and minified JavaScript -->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
   </body>
 </html>
