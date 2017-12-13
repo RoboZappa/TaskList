@@ -69,15 +69,15 @@ app.on('ready', _=>{
 //Opening a file 
 ipc.on('open-json', (event, filePath)=>{
     var file = json.read(filePath);
-    var thing = file.get('todos');
+    var thing = file.get('items');
     //webContents...
     mainWindow.webContents.send('obtain-file-content', thing);
 });
 //Saving a file
-ipc.on('save-json', (event, args)=>{
-    console.log(args[0]);
-    var file = `${args[1]}`;
+ipc.on('save-json', (event, list)=>{
+    console.log(list[0]);
+    var file = `${list[1]}`;
     console.log(file);
-    fs.writeFileSync(file, JSON.stringify(list));
+    fs.writeFileSync(file, JSON.stringify(list[0]));
 });
 

@@ -11,24 +11,26 @@ const ipc = electron.ipcRenderer;
 var app = new Vue({
     el: "#app",
     data: {
-        todos: [
-            {name: "Do the shopping", done: false, id: 0},
-            {name: "Tell wife... something", done: false, id: 1},
-            {name: "Tell wife... something", done: false, id: 2}
-        ]
+        tasks: {
+            items: [
+            ]
+        }
+        
     },
     methods: {
         addTodo(){
             var userTodo = $("#content")[0].value;
-            this.todos.push({name: userTodo, completed: false});
+            this.tasks.items.push({name: userTodo, done: false, id: this.tasks.items.length});
         },
-        removeTodo(){
-
+        removeTodo(id){
+            this.tasks.items[id].done = true;
+            refreshList();
         },
         // Method creates a blank list
         newList(){
-            this.todos = {"items": []};
+            this.tasks = {"items": []};
             ipc.send('save-json', {"items": []});
+            refreshList()
         }
     }
 });
@@ -37,28 +39,32 @@ var app = new Vue({
 //Listeners
 //Listen for Open
 document.getElementById("btnOpen").addEventListener('click', _=> {
-    var filePath = $('#userFile')[0].files[0].filePath;
+    var filePath = $('#userFile')[0].files[0].path;
     if(filePath === undefined)
     {
         alert("No File selected.");
-        alert(filePath);
         return;
     }
-    alert(filePath);
-    openAFile(filePath);
+    else
+    {
+        alert(filePath);
+        openAFile(filePath);
+    }
+    
 })
 
 //Listen for Save
 document.getElementById("btnSave").addEventListener('click', _=> {
-    dialog.showSaveDialog(userFile);
-    if(userFile === undefined)
-    {
-        alert("File not saved");
-        alert(userFile);
-        return;
-    }
-    ipc.send('save-json' [app.todos, userFile]);
-})
+    dialog.showSaveDialog({filters: [ {name: 'MyList (.json)', extensions: ['json'] } ] }, function(userFile){
+        if(userFile === undefined)
+        {
+            alert("File not saved");
+            alert(userFile);
+            return;
+        }
+        ipc.send('save-json', [app.tasks, userFile]);
+    });
+});
 //Function exists to send a request to main ipc
 function openAFile(filePath){
     ipc.send('open-json', filePath);
@@ -73,29 +79,29 @@ ipc.on('menu-open',(event, blank) => {
 //Event fills Vue todos array 
 ipc.on('obtain-file-content', (event, list) => {
     console.log(list);
-    app.todos = list;
-    updateView();
+    app.tasks.items = list;
+    refreshList();
 });
 
 //Clear array to clear list on page
 ipc.on('menu-clear', (event, args) =>{
-    app.items = [];
-    updateView();
+    app.tasks.items = [];
+    refreshList();
 })
 
 
-function updateView() {
-    var empty = true;
-    app.todos.forEach(function (item) {
-        if (item.completed == false) {
-            empty = false;
+function refreshList() {
+    var blank = true;
+    app.tasks.items.forEach(function (item) {
+        if (item.done == false) {
+            blank = false;
         }
     }, this);
-    if (empty == true) {
-        $('#tasks').hide()
+    if (blank == true) {
+        $('#list').hide()
     }
     else {
-        $('#tasks').show()
+        $('#list').show()
     }
 }
 

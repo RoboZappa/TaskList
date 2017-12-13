@@ -32,57 +32,60 @@
       <!-- Todo list -->
       <ul class="collection" id="list">
         <ol>
-          <li v-for="todo in todos" class="collection-item" v-if="todo.completed == false">
-            {{todo.name}}
-            <a v-on:click="removeTodo(todo.id)" href="#" class="secondary-content"><i class="material-icons">check_circle</i></a>
+          <li v-for="item in tasks.items" class="collection-item" v-if="item.done == false">
+            {{item.name}}
+            <a v-on:click="removeTodo(item.id)" href="#" class="secondary-content"><i class="material-icons">cancel</i></a>
           </li>
         </ol>
       </ul>
-        <!-- Add todo -->
-      <div class="collection">
-          <input type="text" id="content" value="Thing to do" class="validate">
-          <button v-on:click="addTodo" class="btn" id="btnAdd">Add to list</button>
+      <!-- Button Row -->
+      <div class="container">
+        <div class="row">
+          <!-- Add todo -->
+          <!-- <div class="collection"> -->
+              <input type="text" id="content" value="Thing to do" class="validate">
+              <button v-on:click="addTodo" class="btn" id="btnAdd">Add to list</button>
+          <!-- </div> -->
+          <a class="waves-effect waves-light btn modal-trigger" data-target="modalOpen">Open List</a>
+          <a class="waves-effect waves-light btn modal-trigger" data-target="modalSave">Save List</a>
+        </div>
       </div>
     </div> <!-- App div close -->
 
+    
   <!-- Save List -->
   <div class="container">
-      <div class-"row">
-          <a class="waves-effect waves-light btn modal-trigger" data-target="modalSave">Save List</a>
-      
-          <div id="modalSave" class="modal bottom-sheet">
-              <div class="modal-content">
-                  <h4>Save List</h4>
-                  <p>Save current list?</p>
-                </div>
-                <div class="modal-footer">
-                  <a id="btnSave" href="#!" class="btn-flat modal-action modal-close waves-effect waves-green">Save</a>
-                </div>
-            </div>
-        </div>
-      </div>
-  <!-- OpenList -->
-  <div class="container">
-    
-        <a class="waves-effect waves-light btn modal-trigger" data-target="modalOpen">Open List</a>
-    
-        <div id="modalOpen" class="modal">
-            <div class="modal-content file-field input-field">
-                <h4>Open List</h4>
-                <p>Pick a file to open</p>
-                <div class-"row">
-                  <span>File</span>
-                  <input id="userFile" type="file">
-                </div>
-                <div class="file-path-wrapper">
-                  <input class="file-path validate" type="text">
-                </div>
+    <div class-"row">
+        <div id="modalSave" class="modal bottom-sheet">
+            <div class="modal-content">
+                <h4>Save List</h4>
+                <p>Save current list?</p>
               </div>
               <div class="modal-footer">
-                <a id="btnOpen" href="#!" class="btn-flat modal-action modal-close waves-effect waves-green">Open</a>
+                <a id="btnSave" href="#!" class="btn-flat modal-action modal-close waves-effect waves-green">Save</a>
               </div>
           </div>
       </div>
+    </div>
+  <!-- OpenList -->
+  <div class="container">
+    <div id="modalOpen" class="modal">
+        <div class="modal-content file-field input-field">
+            <h4>Open List</h4>
+            <p>Pick a file to open</p>
+            <div class-"row">
+              <span>File</span>
+              <input id="userFile" type="file">
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <a id="btnOpen" href="#!" class="btn-flat modal-action modal-close waves-effect waves-green">Open</a>
+          </div>
+      </div>
+  </div>
   
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
