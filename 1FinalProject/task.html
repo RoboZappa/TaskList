@@ -49,7 +49,7 @@
       </div>
        <!-- Add to list from menu  -->
       <!-- Needs Vue.js -->
-      <div class='container' >
+      <div class='container'>
         <div class="row">
           <div id="modalAdd" class="modal">
             <!-- Add todo -->
@@ -64,41 +64,39 @@
         </div>
       </div>
     </div> <!-- App div close -->
-
-  
-  <!-- Save List -->
-  <div class="container">
-    <div class-"row">
-        <div id="modalSave" class="modal bottom-sheet">
-            <div class="modal-content">
+    <!-- Save List -->
+    <div class="container">
+      <div class="row">
+          <div id="modalSave" class="modal bottom-sheet">
+              <div class="modal-content">
                 <h4>Save List</h4>
                 <p>Save current list?</p>
               </div>
               <div class="modal-footer">
                 <a id="btnSave" href="#!" class="btn-flat modal-action modal-close waves-effect waves-green">Save</a>
               </div>
-          </div>
+            </div>
+        </div>
       </div>
+    <!-- OpenList -->
+    <div class="container">
+      <div id="modalOpen" class="modal">
+          <div class="modal-content file-field input-field">
+              <h4>Open List</h4>
+              <p>Pick a file to open</p>
+              <div class="row" >
+                <span>File</span>
+                <input id="userFile" type="file">
+              </div>
+              <div class="file-path-wrapper">
+                <input class="file-path validate" type="text">
+              </div>
+            </div>
+            <div class="modal-footer">
+              <a id="btnOpen" href="#!" class="btn-flat modal-action modal-close waves-effect waves-red">Open</a>
+            </div>
+        </div>
     </div>
-  <!-- OpenList -->
-  <div class="container">
-    <div id="modalOpen" class="modal">
-        <div class="modal-content file-field input-field">
-            <h4>Open List</h4>
-            <p>Pick a file to open</p>
-            <div class-"row">
-              <span>File</span>
-              <input id="userFile" type="file">
-            </div>
-            <div class="file-path-wrapper">
-              <input class="file-path validate" type="text">
-            </div>
-          </div>
-          <div class="modal-footer">
-            <a id="btnOpen" href="#!" class="btn-flat modal-action modal-close waves-effect waves-red">Open</a>
-          </div>
-      </div>
-  </div>
   
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
@@ -108,7 +106,7 @@
     <!-- modal script -->
     <script type="text/javascript">
       $(document).ready(function(){
-        $('.modal').modal();
+        $('#modalSave').modal();
       })
     </script>
     <!-- Compiled and minified JavaScript -->
