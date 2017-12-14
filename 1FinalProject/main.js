@@ -10,7 +10,7 @@ const ipc = electron.ipcMain;
 
 app.on('ready', _=>{
     console.log("It's alive!");
-    mainWindow = new BrowserWindow({ width:625, height:550});
+    mainWindow = new BrowserWindow({ width:625, height:550, resizable: false});
     mainWindow.loadURL(`file://${__dirname}/task.html`);
 
     const menu = Menu.buildFromTemplate(myTemplate);

@@ -19,7 +19,11 @@ var app = new Vue({
     },
     methods: {
         addTodo(){
-            var userTodo = $("#content")[0].value;
+            var userTodo = $("#content1")[0].value;
+            this.tasks.items.push({name: userTodo, done: false, id: this.tasks.items.length});
+        },
+        addFromMenu(){
+            var userTodo = $("#content2")[0].value;
             this.tasks.items.push({name: userTodo, done: false, id: this.tasks.items.length});
         },
         removeTodo(id){
@@ -71,9 +75,15 @@ function openAFile(filePath){
 }
 
 // Menu Items
+// Menu Open
 ipc.on('menu-open',(event, blank) => {
-    $('.modal').modal('open');
+    $('#modalOpen').modal('open');
 });
+
+//Add Item
+ipc.on('menu-add', (event, blank) => {
+    $('#modalAdd').modal('open');
+})
 
 //Returned message from Main ipc
 //Event fills Vue todos array 
