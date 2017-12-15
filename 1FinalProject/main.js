@@ -50,14 +50,6 @@ app.on('ready', _=>{
                 ]//End Submenu
             },
             {
-                label: "Help",
-                click: _=>{alert("No help for you") }
-            },
-            {
-                label: "About",
-                click: _=>{ console.log("You clicked me!") }
-            },
-            {
                 label: "Dev Tools",
                 click: function(item, focusedWindow){ focusedWindow.toggleDevTools();},
                 accelerator : 'ctrl+i'
