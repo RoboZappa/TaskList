@@ -1,63 +1,62 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <title>Honey Do List</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-     <!-- Material Icon CDN -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- Path of the materialize.min.css file -->
-    <link rel="stylesheet" href="css/materialize.min.css" media="screen,projection">
-    <!-- My CSS  -->
-    <link rel="stylesheet" href="css/task.css">
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Calligraffitti|Dancing+Script" rel="stylesheet"> 
-  </head>
-  <body>
-    <nav>
-      <div class="nav-wrapper">
-        <a href="https://github.com/RoboZappa/TaskList" class="brand-logo left">Honey Do's</a>
-        <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li></li>
-          <li></li>
-          <li></li>
-        </ul>
-      </div>
-    </nav>
-    <!-- Main content -->
-    <div class="container" id="app"> 
-      <!-- Todo list -->
-      <ul class="collection" id="list">
-        <ol>
-          <li v-for="item in tasks.items" class="collection-item" v-if="item.done == false">
-            {{item.name}}
-            <a v-on:click="removeTodo(item.id)" href="#" class="secondary-content"><i class="material-icons">cancel</i></a>
-          </li>
-        </ol>
+
+<head>
+  <title>Honey Do List</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Material Icon CDN -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Path of the materialize.min.css file -->
+  <link rel="stylesheet" href="css/materialize.min.css" media="screen,projection">
+  <!-- My CSS  -->
+  <link rel="stylesheet" href="css/task.css">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Calligraffitti|Dancing+Script" rel="stylesheet">
+</head>
+
+<body>
+  <nav>
+    <div class="nav-wrapper">
+      <a href="https://github.com/RoboZappa/TaskList" class="brand-logo left">Honey Do's</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
       </ul>
-      <!-- Button Row -->
-      <div class="container" >
-        <div class="row">
-          <!-- Add todo -->
-              <input type="text" id="content1" value="Thing to do" class="validate">
-              <button v-on:click="addTodo" class="btn waves-effect waves-red modal-trigger" id="btnAdd">Add to list</button>
-          <a class="btn waves-effect waves-red modal-trigger" data-target="modalOpen">Open List</a>
-          <a class="btn waves-effect waves-red modal-trigger" data-target="modalSave">Save List</a>
-        </div>
+    </div>
+  </nav>
+  <!-- Main content -->
+  <div class="container" id="app">
+    <!-- Todo list -->
+    <ul class="collection" id="list">
+      <ol>
+        <li v-for="item in tasks.items" class="collection-item" v-if="item.done == false">
+          {{item.name}}
+          <a v-on:click="removeTodo(item.id)" href="#" class="secondary-content"><i class="material-icons">cancel</i></a>
+        </li>
+      </ol>
+    </ul>
+    <!-- Button Row -->
+    <div class="container">
+      <div class="row">
+        <!-- Add todo -->
+        <input type="text" id="content1" value="Thing to do" class="validate">
+        <button v-on:click="addTodo" class="btn waves-effect waves-red modal-trigger" id="btnAdd">Add to list</button>
+        <a class="btn waves-effect waves-red modal-trigger" data-target="modalOpen">Open List</a>
+        <a class="btn waves-effect waves-red modal-trigger" data-target="modalSave">Save List</a>
       </div>
-       <!-- Add to list from menu  -->
-      <!-- Needs Vue.js -->
-      <div class='container'>
-        <div class="row">
-          <div id="modalAdd" class="modal">
-            <!-- Add todo -->
-            <div class="modal-content">
-              <h4>Add to your List</h4>
-              <input type="text" id="content2" value="Add Todo From Menu" class="validate">
-              <div class="modal-footer">
-                <a v-on:click="addFromMenu" class="btn-flat modal-action modal-close waves-effect waves-green">Add to list</button>
+    </div>
+    <!-- Add to list from menu  -->
+    <!-- Needs Vue.js -->
+    <div class='container'>
+      <div class="row">
+        <div id="modalAdd" class="modal">
+          <!-- Add todo -->
+          <div class="modal-content">
+            <h4>Add to your List</h4>
+            <input type="text" id="content2" value="Add Todo From Menu" class="validate">
+            <div class="modal-footer">
+              <a v-on:click="addFromMenu" class="btn-flat modal-action modal-close waves-effect waves-green">Add to list</button>
               </div>
             </div>
           </div>
@@ -66,52 +65,52 @@
     </div> <!-- App div close -->
     <!-- Save List -->
     <div class="container">
-      <div class="row">
-          <div id="modalSave" class="modal bottom-sheet">
-              <div class="modal-content">
-                <h4>Save List</h4>
-                <p>Save current list?</p>
+        <div class="row">
+            <div id="modalSave" class="modal bottom-sheet">
+                <div class="modal-content">
+                  <h4>Save List</h4>
+                  <p>Save current list?</p>
+                </div>
+                <div class="modal-footer">
+                  <a id="btnSave" href="#!" class="btn-flat modal-action modal-close waves-effect waves-green">Save</a>
+                </div>
               </div>
-              <div class="modal-footer">
-                <a id="btnSave" href="#!" class="btn-flat modal-action modal-close waves-effect waves-green">Save</a>
-              </div>
-            </div>
+          </div>
         </div>
-      </div>
-    <!-- OpenList -->
     <div class="container">
+      <!-- OpenList -->
       <div id="modalOpen" class="modal">
-          <div class="modal-content file-field input-field">
-              <h4>Open List</h4>
-              <p>Pick a file to open</p>
-              <div class="row" >
-                <span>File</span>
-                <input id="userFile" type="file">
-              </div>
-              <div class="file-path-wrapper">
-                <input class="file-path validate" type="text">
-              </div>
-            </div>
-            <div class="modal-footer">
-              <a id="btnOpen" href="#!" class="btn-flat modal-action modal-close waves-effect waves-red">Open</a>
-            </div>
-        </div>
-    </div>
-  
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-    <script src="cool.js"></script>
-    <script src="js/hammer.min.js"></script>
-    <script src="js/materialize.js"></script>
-    <!-- modal script -->
-    <script type="text/javascript">
-      $(document).ready(function(){
-        $('#modalSave').modal();
-      })
-    </script>
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+        <div class="modal-content file-field input-field">
+          <h4>Open List</h4>
+          <p>Pick a file to open</p>
+          <div class="row">
+            <span>File</span>
+            <input id="userFile" type="file">
+          </div><!-- Row div end -->
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text">
+          </div> <!-- file-path-wrapper div end -->
+        </div><!-- modal-content div end -->
+        <div class="modal-footer">
+          <a id="btnOpen" href="#!" class="btn-flat modal-action modal-close waves-effect waves-red">Open</a>
+        </div><!-- modal-footer div end -->
+      </div><!-- Container div end -->
+      
+      
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="cool.js"></script>
+  <script src="js/hammer.min.js"></script>
+  <script src="js/materialize.js"></script>
+  <!-- modal script -->
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $('.modal').modal();
+    })
+  </script>
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
     crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
   </body>
 </html>
