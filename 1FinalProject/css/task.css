@@ -1,17 +1,18 @@
-/* font-family: 'Shadows Into Light', cursive;
-font-family: 'Permanent Marker', cursive;
-font-family: 'Gloria Hallelujah', cursive;
-font-family: 'Rock Salt', cursive;
-font-family: 'Patrick Hand SC', cursive; */
+/* font-family: 'Permanent Marker', cursive;
+font-family: 'Rock Salt', cursive; */
 
 body{
     background-color: whitesmoke;
 }
 
 h4 {
-    margin-top: 1em;
+    margin: 1em 0 0 0;
     font-family: 'Permanent Marker', cursive;
     text-align: center;
+}
+
+i {
+    padding: 0px 5px;
 }
 
 .nav-wrapper{

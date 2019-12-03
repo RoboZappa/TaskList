@@ -8,7 +8,12 @@ const ipc = electron.ipcMain;
 
 app.on('ready', _=>{
     console.log("It's alive!");
-    mainWindow = new BrowserWindow({ width:625, height:550, resizable: true});
+    mainWindow = new BrowserWindow({ 
+        width:625, 
+        height:550, 
+        resizable: true,
+        icon: './assets/imgs/PartyNotesLogo.png'
+    });
     mainWindow.loadURL(`file://${__dirname}/task.html`);
 
     const menu = Menu.buildFromTemplate(myTemplate);
@@ -29,12 +34,7 @@ app.on('ready', _=>{
                     click:_=>{ mainWindow.webContents.send( 'menu-open' )},
                     accelerator: 'Ctrl+O'
                 },// End Open
-                {type: 'separator'},  
-                {
-                    label: "Add Todo",
-                    click: () => { mainWindow.webContents.send( 'menu-add' ) }
-                },//End Add
-                {type: 'separator'},
+                {type: 'separator'}, 
                 {
                     label: "Clear List",
                     click: () => { mainWindow.webContents.send( 'menu-clear' ) }
