@@ -20,8 +20,7 @@
 <body>
   <nav>
     <div class="nav-wrapper">
-      <a href="https://github.com/RoboZappa/TaskList" class="brand-logo left" style="color:rgb(212,175,55);">Party
-        Notes</a>
+      <a href="" class="brand-logo left" style="color:rgb(212,175,55);">Party Notes</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
       </ul>
     </div>
@@ -32,7 +31,8 @@
     <!-- Note Group Title -->
     <div class="row">
       <span>
-        <h4>{{tasks.listTitle}}<i class="material-icons" v-on:click="">edit</i></h4>
+        <h4>{{tasks.noteGroup}}<a class="modal-trigger" data-target="modalEditTitle"><i
+              class="material-icons">edit</i></a></h4>
       </span>
     </div>
     <ul class="collection" id="list">
@@ -52,49 +52,74 @@
     <!-- Button Row -->
     <div class="container">
       <div class="row">
-        <!-- Add todo -->
-        <input type="text" id="content1" placeholder="Notes Here" class="validate">
-        <button v-on:click="addNote()" class="btn waves-effect modal-trigger" id="btnAdd">Add to list</button>
+        <div class="col s11">
+          <input type="text" id="content1" placeholder="Notes Here" class="validate">
+        </div>
+        <div class="col s1">
+          <button v-on:click="addNote()" class="btn-floating waves-effect waves-light black" id="btnAdd"><i
+              class="material-icons">add</i></button>
+        </div>
+        </span>
+      </div>
+      <div class="row">
         <a class="btn waves-effect waves-light modal-trigger" data-target="modalOpen">Open List</a>
         <a class="btn waves-effect waves-light modal-trigger" data-target="modalSave">Save List</a>
       </div>
     </div>
-  </div> <!-- App div close -->
 
-  <!-- Open New File Modal -->
-  <div class="container">
-    <div id="modalOpen" class="modal">
-      <div class="modal-content file-field input-field">
-        <h4>Open List</h4>
-        <p>Pick a file to open</p>
-        <div class="row">
-          <span>File</span>
-          <input id="userFile" type="file">
+    <!-- Open New File Modal -->
+    <div class="container">
+      <div id="modalOpen" class="modal">
+        <div class="modal-content file-field input-field">
+          <h4>Open List</h4>
+          <p>Pick a file to open</p>
+          <div class="row">
+            <span>File</span>
+            <input id="userFile" type="file">
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text">
+          </div>
         </div>
-        <div class="file-path-wrapper">
-          <input class="file-path validate" type="text">
-        </div> 
-      </div>
-      <div class="modal-footer">
-        <a id="btnOpen" href="#!" class="btn-flat modal-action modal-close waves-effect waves-red">Open</a>
+        <div class="modal-footer">
+          <a id="btnOpen" href="#!" class="btn-flat modal-action modal-close waves-effect waves-red">Open</a>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Save Modal -->
-  <div class="container">
-    <div id="modalSave" class="modal">
+    <!-- Save Modal -->
+    <div class="container">
+      <div id="modalSave" class="modal">
+        <div class="modal-content">
+          <h4>Save List</h4>
+          <p>Save current list?</p>
+        </div>
+        <div class="modal-footer">
+          <a id="btnSave" href="#!" class="btn-flat modal-action modal-close waves-effect waves-green">Save</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delete Note Modal -->
+    <div id="modalDelete" class="modal">
       <div class="modal-content">
-        <h4>Save List</h4>
-        <p>Save current list?</p>
-      </div>
-      <div class="modal-footer">
-        <a id="btnSave" href="#!" class="btn-flat modal-action modal-close waves-effect waves-green">Save</a>
+
       </div>
     </div>
-  </div>
 
+    <!-- Edit Title Modal -->
+    <div id="modalEditTitle" class="modal">
+      <div class="modal-content">
+        <h4>Edit Title</h4>
+        <input id="titleInput" type="text" placeholder="Note Group Title" class="validate">
+      </div>
+      <div class="modal-footer">
+        <a id="btnEdit" href="#!" class="btn-flat modal-action modal-close"
+          v-on:click="saveNoteGroupTitle(titleInput.value)">Save</a>
+      </div>
+    </div>
 
+  </div> <!-- App div close -->
 
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/vue"></script>

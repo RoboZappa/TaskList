@@ -8,7 +8,7 @@ var app = new Vue({
     el: "#app",
     data: {
         tasks: {
-            listTitle: 'Current List Title',
+            noteGroup: 'Note Group',
             items: [
             ]
         }
@@ -28,9 +28,10 @@ var app = new Vue({
           //  refreshList();
         },
         toggleNote(id) {
-            console.log('Task Before: ', this.tasks.items[id].done);
             this.tasks.items[id].done = this.tasks.items[id].done ? false : true;
-            console.log('Task After: ', this.tasks.items[id].done);
+        },
+        saveNoteGroupTitle(title){
+            this.tasks.noteGroup = title;
         },
         // Method creates a blank list
         newList(){
