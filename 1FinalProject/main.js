@@ -2,8 +2,6 @@ const electron = require('electron');
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 const Menu = electron.Menu;
-//File stuff
-var dialog = app.dialog;
 var fs = require('fs');
 var json = require('json-file')
 const ipc = electron.ipcMain;
@@ -56,20 +54,18 @@ app.on('ready', _=>{
             },
             { label: "Refresh", role: "reload"}
         ]
-//Listen to me.
+
 //Listeners get triggered from the ipc-renderer-js in the cool.js
 //Opening a file 
 ipc.on('open-json', (event, filePath)=>{
-    var file = json.read(filePath);
-    var thing = file.get('items');
-    //webContents...
-    mainWindow.webContents.send('obtain-file-content', thing);
+    const file = json.read(filePath);
+    const itemsFromFile = file.get('items');
+    mainWindow.webContents.send('obtain-file-content', itemsFromFile);
 });
+
 //Saving a file
-ipc.on('save-json', (event, list)=>{
-    console.log(list[0]);
-    var file = `${list[1]}`;
-    console.log(file);
+ipc.on('save-json', (event, list) => {
+    const file = `${list[1]}`;
     fs.writeFileSync(file, JSON.stringify(list[0]));
 });
 

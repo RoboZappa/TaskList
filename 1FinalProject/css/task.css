@@ -1,13 +1,25 @@
-/* font-family: 'Dancing Script', cursive;
-font-family: 'Calligraffitti', cursive; */
-
-.nav-wrapper{
-    font-family: 'Calligraffitti', cursive;
-    background-color: lightcoral;
-    color: whitesmoke;
-}
+/* font-family: 'Shadows Into Light', cursive;
+font-family: 'Permanent Marker', cursive;
+font-family: 'Gloria Hallelujah', cursive;
+font-family: 'Rock Salt', cursive;
+font-family: 'Patrick Hand SC', cursive; */
 
 body{
     background-color: whitesmoke;
-    color: black;
+}
+
+h4 {
+    margin-top: 1em;
+    font-family: 'Permanent Marker', cursive;
+    text-align: center;
+}
+
+.nav-wrapper{
+    font-family: 'Rock Salt', cursive;
+    background-color: rgb(19, 18, 18);
+    color: goldenrod;
+}
+
+.collection {
+    margin-top: 7.5em;
 }

@@ -1,10 +1,6 @@
-// Renderer js
-// child of the main
 const electron = require('electron');
 var app = require('electron').remote;
 var dialog = app.dialog;
-var fs = require('fs');
-// ipc
 const ipc = electron.ipcRenderer;
 
 //Viewtiful js (Vue.js)
@@ -12,6 +8,7 @@ var app = new Vue({
     el: "#app",
     data: {
         tasks: {
+            listTitle: '',
             items: [
             ]
         }
@@ -41,6 +38,10 @@ var app = new Vue({
 
 
 //Listeners
+
+// On Load Listener 
+document.addEventListener('load', openAFile('./lists/mylist.json'));
+
 //Listen for Open
 document.getElementById("btnOpen").addEventListener('click', _=> {
     var filePath = $('#userFile')[0].files[0].path;
@@ -51,7 +52,6 @@ document.getElementById("btnOpen").addEventListener('click', _=> {
     }
     else
     {
-        alert(filePath);
         openAFile(filePath);
     }
     

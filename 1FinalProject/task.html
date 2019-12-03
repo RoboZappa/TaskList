@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Honey Do List</title>
+  <title>Party Notes - Notes to party to</title>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,20 +14,22 @@
   <!-- My CSS  -->
   <link rel="stylesheet" href="css/task.css">
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Calligraffitti|Dancing+Script" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah|Patrick+Hand+SC|Permanent+Marker|Rock+Salt|Shadows+Into+Light&display=swap" rel="stylesheet">
 </head>
 
 <body>
   <nav>
     <div class="nav-wrapper">
-      <a href="https://github.com/RoboZappa/TaskList" class="brand-logo left">Honey Do's</a>
+      <a href="https://github.com/RoboZappa/TaskList" class="brand-logo left" style="color:rgb(212,175,55);">Party Notes</a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
       </ul>
     </div>
   </nav>
   <!-- Main content -->
   <div class="container" id="app">
-    <!-- Todo list -->
+    <!-- Todo list --> 
+    <!-- List Title -->
+    <h4>Name of Current List</h4>
     <ul class="collection" id="list">
       <ol>
         <li v-for="item in tasks.items" class="collection-item" v-if="item.done == false">
@@ -41,9 +43,9 @@
       <div class="row">
         <!-- Add todo -->
         <input type="text" id="content1" value="Thing to do" class="validate">
-        <button v-on:click="addTodo" class="btn waves-effect waves-red modal-trigger" id="btnAdd">Add to list</button>
-        <a class="btn waves-effect waves-red modal-trigger" data-target="modalOpen">Open List</a>
-        <a class="btn waves-effect waves-red modal-trigger" data-target="modalSave">Save List</a>
+        <button v-on:click="addTodo" class="btn waves-effect modal-trigger" id="btnAdd">Add to list</button>
+        <a class="btn waves-effect modal-trigger" data-target="modalOpen">Open List</a>
+        <a class="btn waves-effect modal-trigger" data-target="modalSave">Save List</a>
       </div>
     </div>
     <!-- Add to list from menu  -->
