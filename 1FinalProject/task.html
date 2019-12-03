@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Party Notes - Notes to party to</title>
+  <title>Party Notes - Notes to Party to</title>
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -20,7 +20,7 @@
 <body>
   <nav>
     <div class="nav-wrapper">
-      <a href="" class="brand-logo left" style="color:rgb(212,175,55);">Party Notes</a>
+      <span class="brand-logo left" style="color:rgb(212,175,55);">Party Notes</span>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
       </ul>
     </div>
@@ -31,22 +31,15 @@
     <!-- Note Group Title -->
     <div class="row">
       <span>
-        <h4>{{tasks.noteGroup}}<a class="modal-trigger" data-target="modalEditTitle"><i
+        <h4>{{tasks.noteGroupTitle}}<a class="modal-trigger" data-target="modalEditTitle"><i
               class="material-icons">edit</i></a></h4>
       </span>
     </div>
     <ul class="collection" id="list">
-      <li v-for="item in tasks.items" class="collection-item" v-if="item.done == false">
-        {{item.name}}
+      <li v-for="item in tasks.items" class="collection-item">
+        <span v-bind:class="{ done: item.done }">{{item.name}}</span>
         <a v-on:click="removeNote(item.id)" href="#" class="secondary-content"><i class="material-icons">delete</i></a>
         <a v-on:click="toggleNote(item.id)" href="#" class="secondary-content"><i class="material-icons">check</i></a>
-      </li>
-      <li v-for="item in tasks.items" class="collection-item" v-if="item.done == true">
-        <del>{{item.name}}<del>
-            <a v-on:click="removeNote(item.id)" href="#" class="secondary-content"><i
-                class="material-icons">delete</i></a>
-            <a v-on:click="toggleNote(item.id)" href="#" class="secondary-content"><i
-                class="material-icons">check</i></a>
       </li>
     </ul>
     <!-- Button Row -->
@@ -56,14 +49,18 @@
           <input type="text" id="content1" placeholder="Notes Here" class="validate">
         </div>
         <div class="col s1">
-          <button v-on:click="addNote()" class="btn-floating waves-effect waves-light black" id="btnAdd"><i
+          <button v-on:click="addNote()" class="btn-floating waves-effect black" id="btnAdd"><i
               class="material-icons">add</i></button>
         </div>
         </span>
       </div>
-      <div class="row">
-        <a class="btn waves-effect waves-light modal-trigger" data-target="modalOpen">Open List</a>
-        <a class="btn waves-effect waves-light modal-trigger" data-target="modalSave">Save List</a>
+      <div id="rowBtn" class="row">
+        <div class="col s6">
+          <a class="btn waves-effect waves-light modal-trigger black" data-target="modalOpen">Open List</a>
+        </div>
+        <div class="col s6">
+          <a id="saveBtn"class="btn waves-effect waves-light modal-trigger black" data-target="modalSave">Save List</a>
+        </div>
       </div>
     </div>
 
@@ -82,7 +79,7 @@
           </div>
         </div>
         <div class="modal-footer">
-          <a id="btnOpen" href="#!" class="btn-flat modal-action modal-close waves-effect waves-red">Open</a>
+          <a id="btnOpen" href="#!" class="btn-flat modal-action modal-close waves-effect waves-light">Open</a>
         </div>
       </div>
     </div>
@@ -95,7 +92,7 @@
           <p>Save current list?</p>
         </div>
         <div class="modal-footer">
-          <a id="btnSave" href="#!" class="btn-flat modal-action modal-close waves-effect waves-green">Save</a>
+          <a id="btnSave" href="#!" class="btn-flat modal-action modal-close waves-effect waves-light">Save</a>
         </div>
       </div>
     </div>
@@ -103,7 +100,12 @@
     <!-- Delete Note Modal -->
     <div id="modalDelete" class="modal">
       <div class="modal-content">
-
+        <h4>Delete Note?</h4>
+        <p>Are you sure you want to delete this note?</p>
+      </div>
+      <div class="modal-footer">
+        <a id="deleteBtn" href="#!" class="btn-flat modal-close waves-effect waves-light">Delete Note</a>
+        <a id="cancelBtn" href="#!" class="btn-flat modal-close waves-effect waves-light">Cancel</a>
       </div>
     </div>
 

@@ -8,7 +8,8 @@ var app = new Vue({
     el: "#app",
     data: {
         tasks: {
-            noteGroup: 'Note Group',
+            noteGroupTitle: String,
+            identity: Number,
             items: [
             ]
         }
@@ -16,27 +17,25 @@ var app = new Vue({
     },
     methods: {
         addNote(){
-            var userTodo = $("#content1")[0].value;
-            this.tasks.items.push({name: userTodo, done: false, id: this.tasks.items.length});
-        },
-        addFromMenu(){
-            var userTodo = $("#content2")[0].value;
-            this.tasks.items.push({name: userTodo, done: false, id: this.tasks.items.length});
+            const userNote = $("#content1")[0].value;
+            this.tasks.identity += 1;
+            this.tasks.items.push({name: userNote, done: false, id: this.tasks.identity});
+            console.log('Identity: ', this.tasks.identity);
+            refreshList();
         },
         removeNote(id){
             this.tasks.items.splice(id, 1);
-          //  refreshList();
         },
         toggleNote(id) {
             this.tasks.items[id].done = this.tasks.items[id].done ? false : true;
         },
         saveNoteGroupTitle(title){
-            this.tasks.noteGroup = title;
+            this.tasks.noteGroupTitle = title;
         },
         // Method creates a blank list
         newList(){
-            this.tasks = {"listTitle": any, "items": []};
-            ipc.send('save-json', {"items": []});
+            this.tasks = {"noteGroupTitle": string, "identity": 0, "items": []};
+            ipc.send('save-json', {"noteGroupTitle": '', "identity": 0, "items": []});
             refreshList()
         }
     }
@@ -58,7 +57,6 @@ document.getElementById("btnOpen").addEventListener('click', _=> {
     } else {
         openAFile(filePath);
     }
-    
 })
 
 //Listen for Save
@@ -72,6 +70,7 @@ document.getElementById("btnSave").addEventListener('click', _=> {
         ipc.send('save-json', [app.tasks, userFile]);
     });
 });
+
 //Function exists to send a request to main ipc
 function openAFile(filePath){
     ipc.send('open-json', filePath);
@@ -83,16 +82,12 @@ ipc.on('menu-open',(event, blank) => {
     $('#modalOpen').modal('open');
 });
 
-//Add Item
-ipc.on('menu-add', (event, blank) => {
-    $('#modalAdd').modal('open');
-})
-
 //Returned message from Main ipc
 //Event fills Vue todos array 
-ipc.on('obtain-file-content', (event, list) => {
-    console.log(list);
-    app.tasks.items = list;
+ipc.on('obtain-file-content', (event, noteGroup) => {
+    app.tasks.noteGroupTitle = noteGroup.noteGroupTitle
+    app.tasks.items = noteGroup.items;
+    console.log('App.Tasks', app.tasks);
     refreshList();
 });
 
@@ -100,11 +95,10 @@ ipc.on('obtain-file-content', (event, list) => {
 ipc.on('menu-clear', (event, args) =>{
     app.tasks.items = [];
     refreshList();
-})
-
+});
 
 function refreshList() {
-    var blank = true;
+    let blank = true;
     app.tasks.items.forEach(function (item) {
         if (item.done == false) {
             blank = false;
@@ -117,33 +111,3 @@ function refreshList() {
         $('#list').show()
     }
 }
-
-
-
-// //Markley's example
-// function openAFile()
-// {
-//     dialog.showOpenDialog((filenames) => {
-//         if(filenames === undefined)
-//         {
-//             alert("No file selected")
-//             return
-//         }
-        
-//         readAFile(filenames[0]);
-//     });
-// }
-
-// function readAFile(filePath){
-//     fs.readFile(filePath, 'utf-8', (err, data) =>{
-//         if(err){
-//             alert("There was a error")
-//             return
-//         }
-//         var textARea
-//     })
-// }
-
-
-//Listener
-//document.getElementById("btnOpen").addEventListener('click', openAFile)

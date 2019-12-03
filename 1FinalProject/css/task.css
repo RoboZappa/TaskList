@@ -6,9 +6,13 @@ body{
 }
 
 h4 {
-    margin: 1em 0 0 0;
+    margin: 1.5em 0 0 0;
     font-family: 'Permanent Marker', cursive;
     text-align: center;
+}
+
+a {
+    text-decoration: none;
 }
 
 i {
@@ -23,5 +27,13 @@ i {
 }
 
 .collection {
-    margin-top: 7.5em;
+    margin: 6em 0 1em 0;
+}
+
+#saveBtn {
+    float: right;
+}
+
+.done {
+    text-decoration: line-through;
 }
