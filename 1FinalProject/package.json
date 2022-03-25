@@ -9,7 +9,7 @@
   "author": "Jordan Gilmore",
   "license": "ISC",
   "devDependencies": {
-    "electron": "1.7.9"
+    "electron": "13.6.6"
   },
   "dependencies": {
     "jquery": "^3.2.1",
